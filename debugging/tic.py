@@ -23,27 +23,33 @@ def check_winner(board):
 def tic_tac_toe():
     board = [[" "]*3 for _ in range(3)]
     player = "X"
-    while not check_winner(board):
+    while True:
         print_board(board)
         try:
-            row = int(input("Enter row (0, 1, or 2) for player " + player + ": "))
-            col = int(input("Enter column (0, 1, or 2) for player " + player + ": "))
-            if row < 0 or row > 2 or col < 0 or col > 2:
-                print("Invalid input! Row and column values must be between 0 and 2.")
-                continue
-            if board[row][col] == " ":
-                board[row][col] = player
-                if player == "X":
-                    player = "O"
-                else:
-                    player = "X"
-            else:
-                print("That spot is already taken! Try again.")
-        except ValueError:
-            print("Invalid input! Please enter a valid integer for row and column.")
+            row = int(input(f"Enter row (0, 1, or 2) for player {player}: "))
+            col = int(input(f"Enter column (0, 1, or 2) for player {player}: "))
 
-    print_board(board)
-    winner = "X" if player == "O" else "O"
-    print("Player " + winner + " wins!")
+            if row not in range(3) or col not in range(3):
+                print("Invalid row or column. Please enter a value between 0 and 2.")
+                continue
+
+            if board[row][col] != " ":
+                print("That spot is already taken! Try again.")
+                continue
+
+            board[row][col] = player
+
+            if check_winner(board):
+                print_board(board)
+                print(f"Player {player} wins!")
+                break
+
+            player = "X" if player == "O" else "O"
+
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
+
+        except IndexError:
+            print("Invalid input. Row and column must be between 0 and 2.")
 
 tic_tac_toe()
