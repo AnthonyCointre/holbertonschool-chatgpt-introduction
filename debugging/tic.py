@@ -24,7 +24,6 @@ def is_winner(board, player):
         and board[0][0] != " "
     ):
         return True
-
     if (
         board[0][2] == player
         and board[1][1] == player
@@ -46,6 +45,7 @@ def tic_tac_toe():
 
     while True:
         print_board(board)
+
         while True:
             try:
                 row = int(input("Enter row (0, 1, or 2)\
@@ -54,14 +54,12 @@ def tic_tac_toe():
                                  for player " + player + ": "))
                 if 0 <= row <= 2 and 0 <= col <= 2 and board[row][col] == " ":
                     break
-
                 else:
                     print("Invalid input. Try again.")
-
             except ValueError:
                 print("Invalid input. Please enter numbers only.")
-        board[row][col] = player
 
+        board[row][col] = player
         if is_winner(board, player):
             print_board(board)
             print("Player " + player + " wins!")
@@ -71,6 +69,7 @@ def tic_tac_toe():
             print_board(board)
             print("It's a tie!")
             break
+
         player = "O" if player == "X" else "X"
 
 if __name__ == "__main__":
